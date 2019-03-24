@@ -16,6 +16,19 @@ def index():
 def registro():
     return render_template('registro.html')
 
+
+@app.route("/tipo")
+def entrar():
+    return render_template('tipo.html')
+
+@app.route("/direccion")
+def direccion():
+    return render_template('direccion.html')
+
+@app.route("/login")
+def login():
+    return render_template('login.html')
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -27,3 +40,4 @@ def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
+
