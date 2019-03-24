@@ -1,0 +1,84 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Registro</title>
+    <style type="text/css">
+    
+            form {
+        display: grid;
+        padding: 2em;
+        background: #f9f9f9;
+        border: 1px solid #c1c1c1;
+        margin: 2rem auto 0 auto;
+        max-width: 900px;
+        padding: 2em;
+        }
+            form input {
+            background: #fff;
+            border: 2px solid #9c9c9c;
+            }
+                form button {
+                background: lightgrey;
+                padding: 0.7em;
+                width: 100%;
+                border: 0;
+                }
+                    form button:hover {
+                    background: gold;
+                    }
+
+                        p{
+                            text-align: center;
+                        }
+    
+    </style>
+</head>
+
+<body>
+
+
+    
+    <form>
+            <p><strong>Registro de Usuario</strong></p>
+            
+            <label for="nombre"><strong>Nombre: </strong> </label>
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre" required maxlength="15">
+            
+            <label for="apellido"><strong>Apellido: </strong></label>
+            <input type="text" id="apellido" placeholder="apellido" required maxlength="25">
+            
+            <label for="contraseña"><strong>Contraseña: </strong></label>
+            <input type="password" required placeholder="****" required>
+            
+            <label for="usuario"><strong>Usuario: </strong></label>
+            <input type="text" id="usuario" required placeholder="ej:mmaestre453" maxlength="12">
+
+            <label for="numero"><strong>Numero: </strong></label>
+            <input type="number" required placeholder="ej:315-555-5555" maxlength="10" >
+            <input type="text" required placeholder="mmaestre453@unab.edu.co" >
+            <label for="universidad"><Strong>Universidad: </Strong></label>
+            <select value="universidad" id="universidad">
+                <option name="UNAB" id="UNAB">UNAB</option>
+                <option name="UPB" id="UPB">UPB</option>
+                <option name="UDES" id="UPB">UDES</option>
+
+
+            </select>
+            
+            <input type="radio" name="genero" value="hombre" id="hombre">Hombre
+            <input type="radio" name="genero" value="mujer" id="mujer">Mujer
+            
+            <input type="checkbox" name="terminos" id="terminos" >Terminos y Condiciones
+            
+            <input type="submit" value="Enviar datos" onclick="location.href='login'">
+
+
+    </form>
+
+    
+
+</body>
+
+</html>
