@@ -3,6 +3,8 @@ from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+
+
 dbdir = "sqlite:///" + os.path.abspath(os.getcwd()) + "/database.db"
 
 app = Flask(__name__)
@@ -52,3 +54,10 @@ def direccion():
 @app.route("/login")
 def login():
     return render_template('login.html')
+
+@app.route("/usuario")
+def usuario():
+    return render_template('usuario.html')
+@app.route("/escogertipo")
+def escogertipo():
+    return render_template('escogertipo.html')
