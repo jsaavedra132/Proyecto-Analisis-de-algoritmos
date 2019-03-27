@@ -5,7 +5,6 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-
 dbdir = "sqlite:///" + os.path.abspath(os.getcwd()) + "/database.db"
 
 app = Flask(__name__)
@@ -59,14 +58,22 @@ def tipo():
 def login():
     if request.method == "POST":
         user = Usuarios.query.filter_by(usuario=request.form["usuario"]).first()
+        correo = Usuarios.query.filter_by(correo=request.form["email"]).first()
 
-        if user and check_password_hash(user.contrasena, request.form["contrasena"]):
+        if user or correo and check_password_hash(user.contrasena, request.form["contrasena"]):
             return redirect(url_for('tipo'))
 
     return render_template('login.html')
 
-@app.route("/direccion")
+@app.route("/direccion", methods=["GET", "POST"])
 def direccion():
+    if request.method == "POST":
+        hashed_password = generate_password_hash(request.form["contrasena"], method="sha256")
+        new_ruta = Rutas(inicio=request.form["inicio"], medio=request.form["medio"], finruta=request.form["finruta"], hora=request.form["hora"], fecha=request.form["fecha"])
+        db.session.add(new_ruta)
+        db.session.commit()
+        return redirect(url_for('direccion'))
+
     return render_template('direccion.html')
 
 @app.route("/usuario")
