@@ -12,6 +12,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = dbdir
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+user_logged = -1
+
 class Usuarios(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     usuario = db.Column(db.String(50), unique=True, nullable=False)
@@ -52,15 +54,20 @@ def registro():
 
 @app.route("/tipo")
 def tipo():
-    return render_template('tipo.html')
+    return render_template('tipo.html', t = user_logged)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    global user_logged
     if request.method == "POST":
-        user = Usuarios.query.filter_by(usuario=request.form["usuario"]).first()
-        correo = Usuarios.query.filter_by(correo=request.form["email"]).first()
 
-        if user or correo and check_password_hash(user.contrasena, request.form["contrasena"]):
+        if '@' in request.form['usuario']:
+            user =  Usuarios.query.filter_by(correo=request.form["usuario"]).first()
+        else:
+            user = Usuarios.query.filter_by(usuario=request.form["usuario"]).first()
+
+        if user and check_password_hash(user.contrasena, request.form["contrasena"]): 
+            user_logged = user.id
             return redirect(url_for('tipo'))
 
     return render_template('login.html')
