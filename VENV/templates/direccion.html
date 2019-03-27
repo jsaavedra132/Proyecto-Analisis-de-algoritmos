@@ -1,315 +1,126 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
     <head>
-
         <meta charset="utf-8">
-
-        <title>Añadir direcciones</title>
-
+        <title>Añadir y eliminar elementos li de una lista desordenada (ul) con javascript</title>
         <style>
-
             li span {
-
                 color:#fff;
-
                 border:1px solid #ccc;
-
                 background-color:#808080;
-
                 margin-right:10px;
-
                 padding: 0 2px;
-
                 border-radius:4px;
-
                 -moz-border-radius:4px;
-
                 -webkit-border-radius:4px;
-
                 -o-border-radius:4px;
-
                 border-radius:4px;
-
                 font-weight:bold;
-
                 font-size:0.8em;
-
                 cursor:pointer;
-
             }
-
         </style>
-
  
+ <script>
+    // http://www.lawebdelprogramador.com
 
-        <script>
-
-        // http://www.lawebdelprogramador.com
-
- 
-
-        /**
-
-         * Funcion que añade un <li> dentro del <ul>
-
-         */
-
-        function add_li()
-
+    /**
+     * Funcion que añade un <li> dentro del <ul>
+     */
+    function add_li()
+    {
+        var nuevoLi=document.getElementById("nuevo_li").value;
+        if(nuevoLi.length>0)
         {
-
-            var nuevoLi=document.getElementById("nuevo_li").value;
-
-            if(nuevoLi.length>0)
-
+            if(find_li(nuevoLi))
             {
-
-                if(find_li(nuevoLi))
-
-                {
-
-                    var li=document.createElement('li');
-
-                    li.id=nuevoLi;
-
-                    li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLi;
-
-                    document.getElementById("listaDesordenada").appendChild(li);
-
-                }
-
+                var li=document.createElement('li');
+                li.id=nuevoLi;
+                li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLi;
+                document.getElementById("listaDesordenada").appendChild(li);
             }
-
-            return false;
-
         }
+        return false;
+    }
 
-        function add_lisegundo()
-
+    function add_li2()
+    {
+        var nuevoLi=document.getElementById("nuevo_li2").value;
+        if(nuevoLi.length>0)
         {
-
-            var nuevoLisegundo=document.getElementById("nuevo_lisegundo").value;
-
-            if(nuevoLisegundo.length>0)
-
+            if(find_li(nuevoLi))
             {
-
-                if(find_li(nuevoLisegundo))
-
-                {
-
-                    var li=document.createElement('li');
-
-                    li.id=nuevoLisegundo;
-
-                    li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLisegundo;
-
-                    document.getElementById("listaDesordenadasegundo").appendChild(li);
-
-                }
-
+                var li=document.createElement('li');
+                li.id=nuevoLi;
+                li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLi;
+                document.getElementById("listaDesordenada").appendChild(li);
             }
-
-            return false;
-
         }
+        return false;
+    }
 
-        function add_litercero()
+    
 
+    /**
+     * Funcion que busca si existe ya el <li> dentrol del <ul>
+     * Devuelve true si no existe.
+     */
+    function find_li(contenido)
+    {
+        var el = document.getElementById("listaDesordenada").getElementsByTagName("li");
+        for (var i=0; i<el.length; i++)
         {
-
-            var nuevoLitercero=document.getElementById("nuevo_litercero").value;
-
-            if(nuevoLitercero.length>0)
-
-            {
-
-                if(find_li(nuevoLitercero))
-
-                {
-
-                    var li=document.createElement('li');
-
-                    li.id=nuevoLitercero;
-
-                    li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLitercero;
-
-                    document.getElementById("listaDesordenadatercero").appendChild(li);
-
-                }
-
-            }
-
-            return false;
-
+            if(el[i].innerHTML==contenido)
+                return false;
         }
+        return true;
+    }
 
- 
+    /**
+     * Funcion para eliminar los elementos
+     * Tiene que recibir el elemento pulsado
+     */
+    function eliminar(elemento)
+    {
+        var id=elemento.parentNode.getAttribute("id");
+        node=document.getElementById(id);
+        node.parentNode.removeChild(node);
+        
+    }
 
-        /**
+    function procesar(){
 
-         * Funcion que busca si existe ya el <li> dentrol del <ul>
+        campo1=document.getElementById('nuevo_li').value;
+        campo2=document.getElementById('nuevo_li2').value;
 
-         * Devuelve true si no existe.
+        final=nuevo_li+nuevo_li2;
+        document.getElementById('final').value=final;
+        document.forms.formulario.submit();
 
-         */
+}
 
-        function find_li(contenido)
+   
 
-        {
-
-            var el = document.getElementById("listaDesordenada").getElementsByTagName("li");
-
-            for (var i=0; i<el.length; i++)
-
-            {
-
-                if(el[i].innerHTML==contenido)
-
-                    return false;
-
-            }
-
-            return true;
-
-        }
-
-        function find_li(contenido)
-
-        {
-
-            var el = document.getElementById("listaDesordenadasegundo").getElementsByTagName("li");
-
-            for (var i=0; i<el.length; i++)
-
-            {
-
-                if(el[i].innerHTML==contenido)
-
-                    return false;
-
-            }
-
-            return true;
-
-        }
-        function find_li(contenido)
-
-        {
-
-            var el = document.getElementById("listaDesordenadatercero").getElementsByTagName("li");
-
-            for (var i=0; i<el.length; i++)
-
-            {
-
-                if(el[i].innerHTML==contenido)
-
-                    return false;
-
-            }
-
-            return true;
-
-        }
-
- 
-
-        /**
-
-         * Funcion para eliminar los elementos
-
-         * Tiene que recibir el elemento pulsado
-
-         */
-
-        function eliminar(elemento)
-
-        {
-
-            var id=elemento.parentNode.getAttribute("id");
-
-            node=document.getElementById(id);
-
-            node.parentNode.removeChild(node);
-
-        }
-
-    </script>
-
+    
+</script>
     </head>
-
  
-
     <body>
-
-        <p><strong>Dirreccion inicial</strong></p>
-
+       <p>Añadir direccion inicial</p>
         <p>
-
-            <form>
-
-                <input type="text" id="nuevo_li">
+            <form name="formulario" oninput="textFullElement.value= nuevo_li.value+' '+ nuevo_li2.value">
+                <input type="text" id="nuevo_li" >
+                <br><br>
+                <input type="text" id="nuevo_li2" >
+                <br><input type="submit" onclick="return add_li()s"  value="añadir li" >
+                <br><br>
+               
                 
-
-                <br><input type="submit" onclick="return add_li()" value="añadir direccion">
-                
-
             </form>
-
         </p>
-
         <ul id="listaDesordenada">
-
         </ul>
-
-
-        <p><strong>Direccion punto medio</strong></p>
 
         
-
-        <p>
-
-            <form>
-
-                <input type="text" id="nuevo_litercero">
-                
-
-                <br><input type="submit" onclick="return add_litercero()" value="añadir direccion medio">
-                
-
-            </form>
-
-        </p>
-
-        <ul id="listaDesordenadatercero">
-
-        </ul>
-
-        <p><strong>Direccion final</strong></p>
-
-        
-
-        <p>
-
-            <form>
-
-                <input type="text" id="nuevo_lisegundo">
-                
-
-                <br><input type="submit" onclick="return add_lisegundo()" value="añadir direccion final">
-                
-
-            </form>
-
-        </p>
-
-        <ul id="listaDesordenadasegundo">
-
-        </ul>
-
     </body>
-
 </html>

@@ -54,7 +54,10 @@ def registro():
 
 @app.route("/tipo")
 def tipo():
-    return render_template('tipo.html', t = user_logged)
+    if(user_logged<0):
+        return redirect(url_for('login'))
+    else:
+        return render_template("tipo.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -74,18 +77,29 @@ def login():
 
 @app.route("/direccion", methods=["GET", "POST"])
 def direccion():
+    if(user_logged<0):
+        return redirect(url_for('login'))
+    else:
+        return render_template("direccion.html")
+
     if request.method == "POST":
-        hashed_password = generate_password_hash(request.form["contrasena"], method="sha256")
         new_ruta = Rutas(inicio=request.form["inicio"], medio=request.form["medio"], finruta=request.form["finruta"], hora=request.form["hora"], fecha=request.form["fecha"])
         db.session.add(new_ruta)
         db.session.commit()
         return redirect(url_for('direccion'))
 
-    return render_template('direccion.html')
+    
 
 @app.route("/usuario")
 def usuario():
-    return render_template('usuario.html')
+    if(user_logged<0):
+        return redirect(url_for('login'))
+    else:
+        return render_template("usuario.html")
+
 @app.route("/escogertipo")
 def escogertipo():
-    return render_template('escogertipo.html')
+    if(user_logged<0):
+        return redirect(url_for('login'))
+    else:
+        return render_template("escogertipo.html")
