@@ -116,6 +116,36 @@
 
         }
 
+        function add_litercero()
+
+        {
+
+            var nuevoLitercero=document.getElementById("nuevo_litercero").value;
+
+            if(nuevoLitercero.length>0)
+
+            {
+
+                if(find_li(nuevoLitercero))
+
+                {
+
+                    var li=document.createElement('li');
+
+                    li.id=nuevoLitercero;
+
+                    li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLitercero;
+
+                    document.getElementById("listaDesordenadatercero").appendChild(li);
+
+                }
+
+            }
+
+            return false;
+
+        }
+
  
 
         /**
@@ -151,6 +181,25 @@
         {
 
             var el = document.getElementById("listaDesordenadasegundo").getElementsByTagName("li");
+
+            for (var i=0; i<el.length; i++)
+
+            {
+
+                if(el[i].innerHTML==contenido)
+
+                    return false;
+
+            }
+
+            return true;
+
+        }
+        function find_li(contenido)
+
+        {
+
+            var el = document.getElementById("listaDesordenadatercero").getElementsByTagName("li");
 
             for (var i=0; i<el.length; i++)
 
@@ -213,6 +262,29 @@
         </p>
 
         <ul id="listaDesordenada">
+
+        </ul>
+
+
+        <p><strong>Direccion punto medio</strong></p>
+
+        
+
+        <p>
+
+            <form>
+
+                <input type="text" id="nuevo_litercero">
+                
+
+                <br><input type="submit" onclick="return add_litercero()" value="añadir direccion medio">
+                
+
+            </form>
+
+        </p>
+
+        <ul id="listaDesordenadatercero">
 
         </ul>
 
