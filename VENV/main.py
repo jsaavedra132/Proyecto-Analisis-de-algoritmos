@@ -1,7 +1,8 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
@@ -32,28 +33,41 @@ class Rutas(db.Model):
 
 @app.route("/")
 def index():
-    return render_template('login.html')
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     db.create_all()
     app.run()
 
-@app.route("/registro")
+@app.route("/registro", methods=["GET", "POST"])
 def registro():
+    if request.method == "POST":
+        hashed_password = generate_password_hash(request.form["contrasena"], method="sha256")
+        new_user = Usuarios(usuario=request.form["usuario"], nombre=request.form["nombre"], apellido=request.form["apellido"], contrasena=hashed_password, celular=request.form["celular"], correo=request.form["email"], universidad=request.form["uni"])
+        db.session.add(new_user)
+        db.session.commit()
+        return render_template('login.html')
+
     return render_template('registro.html')
 
 
 @app.route("/tipo")
-def entrar():
+def tipo():
     return render_template('tipo.html')
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        user = Usuarios.query.filter_by(usuario=request.form["usuario"]).first()
+
+        if user and check_password_hash(user.contrasena, request.form["contrasena"]):
+            return redirect(url_for('tipo'))
+
+    return render_template('login.html')
 
 @app.route("/direccion")
 def direccion():
     return render_template('direccion.html')
-
-@app.route("/login")
-def login():
-    return render_template('login.html')
 
 @app.route("/usuario")
 def usuario():

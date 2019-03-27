@@ -76,7 +76,7 @@ input:-moz-placeholder {
     color:    #b5b5b5;
 }
 
-#signup .inputs input[type=email], input[type=password] {
+#signup .inputs input[type=email], input[type=text], input[type=tel], input[type=password] {
     background: #f5f5f5;
     font-size: 0.8rem;
     -moz-border-radius: 3px;
@@ -96,7 +96,7 @@ input:-moz-placeholder {
     box-shadow: 0px 0px 0px 3px #fff38e, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
     outline: none;
 }
-#signup .inputs input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, input[type=number]:focus {
+#signup .inputs input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, input[type=tel]:focus {
     background: #fff;
     box-shadow: 0px 0px 0px 3px #fff38e, inset 0px 2px 3px rgba( 0,0,0,0.2 ), 0px 5px 5px rgba( 0,0,0,0.15 );
     outline: none;   
@@ -181,7 +181,7 @@ input:-moz-placeholder {
     
     <div class="container">
 
-        <form id="signup">
+        <form method="post" action="{{ url_for('registro') }}" id="signup">
     
             <div class="header">
             
@@ -195,14 +195,14 @@ input:-moz-placeholder {
     
             <div class="inputs">
             
-                <input type="email" placeholder="e-mail" autofocus  required/>
+                <input type="email" name="email" placeholder="e-mail" autofocus  required/>
             
-                <input type="password" placeholder="Password" required/>
-                <input type="email" placeholder="nombre" autofocus  required/>
-                <input type="email" placeholder="numero" autofocus  required maxlength="10"/>
-                <input type="email" placeholder="Usuario" autofocus  required maxlength="10"/>
-                <select name="uni" id="universidad">
-
+                <input type="password" name="contrasena" placeholder="Password" required/>
+                <input type="text" name="nombre" placeholder="nombre" autofocus  required/>
+                <input type="text" name="apellido" placeholder="apellido" autofocus  required/>
+                <input type="tel" name="celular" placeholder="numero" autofocus  required maxlength="10"/>
+                <input type="text" name="usuario" placeholder="Usuario" autofocus  required maxlength="20"/>
+                <select name="uni" id="universidad">s
                     <option value="Udes">UDES</option>
                     <option value="Unab">UNAB</option>
                     <option value="Upb">UPB</option>
@@ -214,7 +214,7 @@ input:-moz-placeholder {
                     <input name="cecky" id="checky" value="1" type="checkbox" /><label class="terms">Acepto terminos y condiciones</label>
                 </div>
                 
-                <a id="submit" href="login">Registrar</a>
+                <input type="submit" id="submit"></input>
             
             </div>
     
