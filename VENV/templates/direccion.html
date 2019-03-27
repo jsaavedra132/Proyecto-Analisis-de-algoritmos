@@ -1,116 +1,243 @@
-<html>
+<!DOCTYPE html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Agregar direcciones</title>
-    <meta name="viewport" content="width=device-width">
-    <style type="text/css">
-    
-        body {
-        font: 13px verdana;
-        font-weight: normal;
-        }
+<html lang="es">
 
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
+    <head>
 
-<body>
+        <meta charset="utf-8">
 
-        <div id="main">
-                <input type="button" id="btAdd" value="Añadir Elemento" class="bt" />
-                <input type="button" id="btRemove" value="Eliminar Elemento" class="bt" />
-                <input type="button" id="btRemoveAll" value="Eliminar Todo" class="bt" /><br />
-                
-            </div>
+        <title>Añadir direcciones</title>
 
-            <script type="text/javascript">
-            
-            $(document).ready(function() {
-        var iCnt = 0;
+        <style>
 
-// Crear un elemento div añadiendo estilos CSS
-        var container = $(document.createElement('div')).css({
-            padding: '5px', margin: '20px', width: '170px', border: '1px dashed',
-            borderTopColor: '#999', borderBottomColor: '#999',
-            borderLeftColor: '#999', borderRightColor: '#999'
-        });
+            li span {
 
-        $('#btAdd').click(function() {
-            if (iCnt <= 19) {
+                color:#fff;
 
-                iCnt = iCnt + 1;
+                border:1px solid #ccc;
 
-                // Añadir caja de texto.
-                $(container).append('<input type=text class="input" id=tb' + iCnt + ' ' +
-                            'value="Elemento de Texto ' + iCnt + '" />');
+                background-color:#808080;
 
-                if (iCnt == 1) {   
+                margin-right:10px;
 
- var divSubmit = $(document.createElement('div'));
-                    $(divSubmit).append('<input type=button class="bt" onclick="GetTextValue()"' + 
-                            'id=btSubmit value=Enviar />');
+                padding: 0 2px;
+
+                border-radius:4px;
+
+                -moz-border-radius:4px;
+
+                -webkit-border-radius:4px;
+
+                -o-border-radius:4px;
+
+                border-radius:4px;
+
+                font-weight:bold;
+
+                font-size:0.8em;
+
+                cursor:pointer;
+
+            }
+
+        </style>
+
+ 
+
+        <script>
+
+        // http://www.lawebdelprogramador.com
+
+ 
+
+        /**
+
+         * Funcion que añade un <li> dentro del <ul>
+
+         */
+
+        function add_li()
+
+        {
+
+            var nuevoLi=document.getElementById("nuevo_li").value;
+
+            if(nuevoLi.length>0)
+
+            {
+
+                if(find_li(nuevoLi))
+
+                {
+
+                    var li=document.createElement('li');
+
+                    li.id=nuevoLi;
+
+                    li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLi;
+
+                    document.getElementById("listaDesordenada").appendChild(li);
 
                 }
 
- $('#main').after(container, divSubmit); 
             }
-            else {      //se establece un limite para añadir elementos, 20 es el limite
+
+            return false;
+
+        }
+
+        function add_lisegundo()
+
+        {
+
+            var nuevoLisegundo=document.getElementById("nuevo_lisegundo").value;
+
+            if(nuevoLisegundo.length>0)
+
+            {
+
+                if(find_li(nuevoLisegundo))
+
+                {
+
+                    var li=document.createElement('li');
+
+                    li.id=nuevoLisegundo;
+
+                    li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLisegundo;
+
+                    document.getElementById("listaDesordenadasegundo").appendChild(li);
+
+                }
+
+            }
+
+            return false;
+
+        }
+
+ 
+
+        /**
+
+         * Funcion que busca si existe ya el <li> dentrol del <ul>
+
+         * Devuelve true si no existe.
+
+         */
+
+        function find_li(contenido)
+
+        {
+
+            var el = document.getElementById("listaDesordenada").getElementsByTagName("li");
+
+            for (var i=0; i<el.length; i++)
+
+            {
+
+                if(el[i].innerHTML==contenido)
+
+                    return false;
+
+            }
+
+            return true;
+
+        }
+
+        function find_li(contenido)
+
+        {
+
+            var el = document.getElementById("listaDesordenadasegundo").getElementsByTagName("li");
+
+            for (var i=0; i<el.length; i++)
+
+            {
+
+                if(el[i].innerHTML==contenido)
+
+                    return false;
+
+            }
+
+            return true;
+
+        }
+
+ 
+
+        /**
+
+         * Funcion para eliminar los elementos
+
+         * Tiene que recibir el elemento pulsado
+
+         */
+
+        function eliminar(elemento)
+
+        {
+
+            var id=elemento.parentNode.getAttribute("id");
+
+            node=document.getElementById(id);
+
+            node.parentNode.removeChild(node);
+
+        }
+
+    </script>
+
+    </head>
+
+ 
+
+    <body>
+
+        <p><strong>Dirreccion inicial</strong></p>
+
+        <p>
+
+            <form>
+
+                <input type="text" id="nuevo_li">
                 
-                $(container).append('<label>Limite Alcanzado</label>'); 
-                $('#btAdd').attr('class', 'bt-disable'); 
-                $('#btAdd').attr('disabled', 'disabled');
 
-            }
-        });
+                <br><input type="submit" onclick="return add_li()" value="añadir direccion">
+                
 
-        $('#btRemove').click(function() {   // Elimina un elemento por click
-            if (iCnt != 0) { $('#tb' + iCnt).remove(); iCnt = iCnt - 1; }
+            </form>
+
+        </p>
+
+        <ul id="listaDesordenada">
+
+        </ul>
+
+        <p><strong>Direccion final</strong></p>
+
         
-            if (iCnt == 0) { $(container).empty(); 
-        
-                $(container).remove(); 
-                $('#btSubmit').remove(); 
-                $('#btAdd').removeAttr('disabled'); 
-                $('#btAdd').attr('class', 'bt') 
 
-            }
-        });
+        <p>
 
-        $('#btRemoveAll').click(function() {    // Elimina todos los elementos del contenedor
-        
-            $(container).empty(); 
-            $(container).remove(); 
-            $('#btSubmit').remove(); iCnt = 0; 
-            $('#btAdd').removeAttr('disabled'); 
-            $('#btAdd').attr('class', 'bt');
+            <form>
 
-        });
-    });
+                <input type="text" id="nuevo_lisegundo">
+                
 
-    // Obtiene los valores de los textbox al dar click en el boton "Enviar"
-    var divValue, values = '';
+                <br><input type="submit" onclick="return add_lisegundo()" value="añadir direccion final">
+                
 
-    function GetTextValue() {
+            </form>
 
-        $(divValue).empty(); 
-        $(divValue).remove(); values = '';
+        </p>
 
-        $('.input').each(function() {
-            divValue = $(document.createElement('div')).css({
-                padding:'5px', width:'200px'
-            });
-            values += this.value + '<br />'
-        });
+        <ul id="listaDesordenadasegundo">
 
-        $(divValue).append('<p><b>Tus valores añadidos</b></p>' + values);
-        $('body').append(divValue);
-        
-    }
-            
-            </script>
+        </ul>
 
-</body>
-
+    </body>
 
 </html>
