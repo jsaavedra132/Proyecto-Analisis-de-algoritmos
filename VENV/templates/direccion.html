@@ -21,106 +21,26 @@
             }
         </style>
  
- <script>
-    // http://www.lawebdelprogramador.com
-
-    /**
-     * Funcion que añade un <li> dentro del <ul>
-     */
-    function add_li()
-    {
-        var nuevoLi=document.getElementById("nuevo_li").value;
-        if(nuevoLi.length>0)
-        {
-            if(find_li(nuevoLi))
-            {
-                var li=document.createElement('li');
-                li.id=nuevoLi;
-                li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLi;
-                document.getElementById("listaDesordenada").appendChild(li);
-            }
-        }
-        return false;
-    }
-
-    function add_li2()
-    {
-        var nuevoLi=document.getElementById("nuevo_li2").value;
-        if(nuevoLi.length>0)
-        {
-            if(find_li(nuevoLi))
-            {
-                var li=document.createElement('li');
-                li.id=nuevoLi;
-                li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLi;
-                document.getElementById("listaDesordenada").appendChild(li);
-            }
-        }
-        return false;
-    }
-
-    
-
-    /**
-     * Funcion que busca si existe ya el <li> dentrol del <ul>
-     * Devuelve true si no existe.
-     */
-    function find_li(contenido)
-    {
-        var el = document.getElementById("listaDesordenada").getElementsByTagName("li");
-        for (var i=0; i<el.length; i++)
-        {
-            if(el[i].innerHTML==contenido)
-                return false;
-        }
-        return true;
-    }
-
-    /**
-     * Funcion para eliminar los elementos
-     * Tiene que recibir el elemento pulsado
-     */
-    function eliminar(elemento)
-    {
-        var id=elemento.parentNode.getAttribute("id");
-        node=document.getElementById(id);
-        node.parentNode.removeChild(node);
-        
-    }
-
-    function procesar(){
-
-        campo1=document.getElementById('nuevo_li').value;
-        campo2=document.getElementById('nuevo_li2').value;
-
-        final=nuevo_li+nuevo_li2;
-        document.getElementById('final').value=final;
-        document.forms.formulario.submit();
-
-}
-
-   
-
-    
-</script>
     </head>
  
     <body>
        <p>Añadir direccion inicial</p>
         <p>
-            <form name="formulario" oninput="textFullElement.value= nuevo_li.value+' '+ nuevo_li2.value">
-                <input type="text" id="nuevo_li" >
+            <form method="post" action="{{ url_for('direccion') }}">
+                <input type="text" name="inicio" placeholder="Inicio de ruta" id="nuevo_li" required/>
                 <br><br>
-                <input type="text" id="nuevo_li2" >
-                <br><input type="submit" onclick="return add_li()s"  value="añadir li" >
+                <input type="text" name="medio" placeholder="Punto medio de ruta" id="nuevo_li" required/>
                 <br><br>
-               
-                
+                <input type="text" name="finruta"placeholder="Final de la ruta" id="nuevo_li" required/>
+                <br><br>
+                <input type="text" name="hora" placeholder="Hora" id="nuevo_li" required/>
+                <br><br>
+                <input type="text" name="fecha" placeholder="Fecha" id="nuevo_li" required/>
+                <br><br>
+                <br><input type="submit" id="submit" value="Añadir" >
+                <br><br>
             </form>
         </p>
-        <ul id="listaDesordenada">
-        </ul>
-
         
     </body>
 </html>

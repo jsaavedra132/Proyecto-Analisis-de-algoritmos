@@ -196,47 +196,15 @@
 
     <body>
 
-        <p><strong>Dirreccion inicial</strong></p>
-
-        <p>
-
-            <form>
-
-                <input type="text" id="nuevo_li">
-                
-
-                <br><input type="submit" onclick="return add_li()" value="añadir direccion">
-                
-
-            </form>
-
-        </p>
-
-        <ul id="listaDesordenada">
-
-        </ul>
-
-        <p><strong>Direccion final</strong></p>
-
-        
-
-        <p>
-
-            <form>
-
-                <input type="text" id="nuevo_lisegundo">
-                
-
-                <br><input type="submit" onclick="return add_lisegundo()" value="añadir direccion final">
-                
-
-            </form>
-
-        </p>
-
-        <ul id="listaDesordenadasegundo">
-
-        </ul>
+        {% for ruta in rutas %}
+            <p>
+                {% if ruta[0] != None %}
+                    <a href="https://www.google.com/maps/dir/{{ruta[1]}}/{{ruta[3]}}" class="button">Usuario: {{ruta[0].nombre}} Celular: {{ruta[0].celular}} Inicio: {{ruta[1]}} - Punto medio: {{ruta[2]}} - Fin: {{ruta[3]}} - Hora: {{ruta[4]}} - Fecha: {{ruta[5]}}</a>
+                    <br>
+                    <br>
+                {% endif %}
+            </p>
+        {% endfor %}
 
     </body>
 
