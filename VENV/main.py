@@ -76,8 +76,8 @@ def login():
             if user and check_password_hash(user.contrasena, request.form["contrasena"]): 
                 user_logged = user.id
                 return redirect(url_for('tipo'))
-        except:
-            return render_template("error.html")
+        except Exception as e:
+            return render_template("error.html", e=e)
         
     return render_template('login.html')
 
