@@ -92,7 +92,7 @@ def direccion():
             usuario = Usuarios.query.filter_by(id = user_logged).first()
             usuario.addresses.append(new_ruta)
             db.session.commit()
-            return redirect(url_for('escogertipo'))
+            
         except Exception as e:
             return render_template("error.html", e=e)
     if(user_logged<0):

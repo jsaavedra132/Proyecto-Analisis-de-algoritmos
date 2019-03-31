@@ -1,46 +1,207 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
         <title>Añadir y eliminar elementos li de una lista desordenada (ul) con javascript</title>
-        <style>
-            li span {
-                color:#fff;
-                border:1px solid #ccc;
-                background-color:#808080;
-                margin-right:10px;
-                padding: 0 2px;
-                border-radius:4px;
-                -moz-border-radius:4px;
-                -webkit-border-radius:4px;
-                -o-border-radius:4px;
-                border-radius:4px;
-                font-weight:bold;
-                font-size:0.8em;
-                cursor:pointer;
-            }
+        <style type="text/css">
+
+html {
+	font-size: 16px;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+	background-color: #9AD1ED;
+}
+
+.container {
+	max-width: 450px;
+	height: auto;
+	background-color: #EFEFEF;
+	margin: 5% auto;
+	padding-bottom: 1rem;
+	
+}
+
+.form__top {
+	width: 100%;
+	text-align: center;
+	padding: 2rem 0 1rem;
+	border-top: solid .4rem #F39B53;
+	margin-bottom: 1rem;
+}
+
+.form__top h2 {
+	font-weight: bold;
+	color: #CAC8C8;
+	font-size: 18px;
+}
+
+h2 span {
+	color: #F39B53;
+}
+
+.form__reg {
+	padding: 0 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.btn__form {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 1rem;
+}
+
+.input, .btn__submit, .btn__reset{
+	background-color: #EFEFEF;
+	padding: .5rem;
+	margin: .5rem 0;
+	border: none;
+	border-bottom: solid #C8C8C8 .2rem;
+	transition: all .5s;
+}
+
+.input:focus {
+	border-bottom: solid #F39B53 .2rem;
+}
+
+.btn__submit, .btn__reset {
+	width: 40%;
+	border-bottom: none;
+	background-color: #31B1E5;
+	color: white;
+}
+
+.btn__reset {
+	background-color: #EDA135;
+}
+
+.btn__submit:hover {
+	background-color: #4C9ED9;
+}
+
+.btn__reset:hover{
+	background-color: #FA9535;
+}
+            
         </style>
  
     </head>
+
  
     <body>
-       <p>Añadir direccion inicial</p>
-        <p>
-            <form method="post" action="{{ url_for('direccion') }}">
-                <input type="text" name="inicio" placeholder="Inicio de ruta" id="nuevo_li" required/>
+
+        <script type="text/javascript">
+        
+       
+
+     // http://www.lawebdelprogramador.com
+ 
+        /**
+         * Funcion que añade un <li> dentro del <ul>
+         */
+         function add_li()
+        {
+            var nuevoLi=document.getElementById("nuevo_li").value;
+            if(nuevoLi.length>0)
+            {
+                if(find_li(nuevoLi))
+                {
+                    var inicio = document.getElementById('inicio').value;
+                    var medio = document.getElementById('medio').value;
+                    var finruta=document.getElementById('finruta').value;
+                    var hora =document.getElementById('hora').value;
+                    var fecha = document.getElementById('fecha').value;
+                    var li=document.createElement('li');
+                    li.id=nuevoLi;
+                    li.innerHTML="<span onclick='eliminar(this)'>X</span>"+nuevoLi;
+                    document.getElementById("listaDesordenada").appendChild(li);
+                   
+                }
+            }
+            return false;
+        }
+ 
+        /**
+         * Funcion que busca si existe ya el <li> dentrol del <ul>
+         * Devuelve true si no existe.
+         */
+        function find_li(contenido)
+        {
+            var el = document.getElementById("listaDesordenada").getElementsByTagName("li");
+            for (var i=0; i<el.length; i++)
+            {
+                if(el[i].innerHTML==contenido)
+                    return false;
+            }
+            return true;
+        }
+ 
+        /**
+         * Funcion para eliminar los elementos
+         * Tiene que recibir el elemento pulsado
+         */
+        function eliminar(elemento)
+        {
+            var id=elemento.parentNode.getAttribute("id");
+            node=document.getElementById(id);
+            node.parentNode.removeChild(node);
+        }
+
+        function obtenerdatos()
+	{
+		var inicio = document.getElementById('inicio').value;
+		var medio = document.getElementById('medio').value;
+        var finruta=document.getElementById('finruta').value;
+        var hora =document.getElementById('hora').value;
+        var fecha = document.getElementById('fecha').value;
+
+		
+        
+
+	}
+        
+        </script>
+        <div class="container">
+            <div class="form__top">
+                <h2>Formulario <span>Direcciones</span></h2>
+            </div>	
+            <form method="post" action="{{ url_for('direccion') }}" class="form__reg">
+                <input type="text" name="inicio" placeholder="Inicio de ruta" id="inicio" required class="input"/>
                 <br><br>
-                <input type="text" name="medio" placeholder="Punto medio de ruta" id="nuevo_li" required/>
+                <input type="text" name="medio" placeholder="Punto medio de ruta" id="medio" required class="input"/>
                 <br><br>
-                <input type="text" name="finruta"placeholder="Final de la ruta" id="nuevo_li" required/>
+                <input type="text" name="finruta"placeholder="Final de la ruta" id="finruta" required class="input"/>
                 <br><br>
-                <input type="text" name="hora" placeholder="Hora" id="nuevo_li" required/>
+                <input type="text" name="hora" placeholder="Hora" id="hora" required class="input"/>
                 <br><br>
-                <input type="text" name="fecha" placeholder="Fecha" id="nuevo_li" required/>
+                <input type="text" name="fecha" placeholder="Fecha" id="fecha" required class="input"/>
                 <br><br>
-                <br><input type="submit" id="submit" value="Añadir" >
+                <div class="btn__form">
+                <br><input type="submit" id="submit" value="Añadir" class="btn__submit"  >
+                </div>
                 <br><br>
             </form>
-        </p>
+            <br>
+            <br>
+
+
+            <form >
+
+                    
+            </form>
+
+        
+    </div>
+
+        
+            	
+            
+        
         
     </body>
 </html>

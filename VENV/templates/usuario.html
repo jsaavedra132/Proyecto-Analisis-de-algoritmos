@@ -199,6 +199,7 @@
         {% for ruta in rutas %}
             <p>
                 {% if ruta[0] != None %}
+                
                     <a href="https://www.google.com/maps/dir/{{ruta[1]}}/{{ruta[2]}}/{{ruta[3]}}" class="button">Usuario: {{ruta[0].nombre}} Celular: {{ruta[0].celular}} Inicio: {{ruta[1]}} - Punto medio: {{ruta[2]}} - Fin: {{ruta[3]}} - Hora: {{ruta[4]}} - Fecha: {{ruta[5]}}</a>
                     <br>
                     <br>
