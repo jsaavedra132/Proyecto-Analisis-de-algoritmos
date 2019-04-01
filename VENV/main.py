@@ -92,7 +92,7 @@ def direccion():
             usuario = Usuarios.query.filter_by(id = user_logged).first()
             usuario.addresses.append(new_ruta)
             db.session.commit()
-            
+            return redirect(url_for('escogertipo'))
         except Exception as e:
             return render_template("error.html", e=e)
     if(user_logged<0):
@@ -101,10 +101,11 @@ def direccion():
         return render_template("direccion.html")
 
 
-@app.route("/usuario")
+@app.route("/usuario", methods=["GET", "POST"])
 def usuario():
     rutas = []
     rutaActual = []
+
     if(user_logged<0):
         return redirect(url_for('login'))
     else:
@@ -115,6 +116,8 @@ def usuario():
             return render_template("usuario.html", rutas=rutas)
         except Exception as e:
             return render_template("error.html", e=e)
+    
+    
         
 
 @app.route("/escogertipo")
